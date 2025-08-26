@@ -29,15 +29,16 @@
       column-count: 4; /* numero di colonne */
       column-gap: 15px; /* spazio tra le colonne */
       padding: 20px;
+      overflow: visible; /* evita ritaglio durante l'hover */
     }
 
     .gallery img {
       width: 100%;
       display: block; /* necessario per il column layout */
       margin-bottom: 15px; /* spazio verticale tra immagini */
-      border-radius: 10px;
       cursor: pointer;
       transition: transform 0.3s;
+      transform-origin: center; /* centra lo scaling */
     }
 
     @media (max-width: 800px) {
@@ -53,7 +54,7 @@
     }
 
     .gallery img:hover {
-      transform: scale(1.03);
+      transform: scale(1.02);
     }
 
     /* Lightbox */
