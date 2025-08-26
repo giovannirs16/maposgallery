@@ -159,6 +159,23 @@
   </div>
 
   <script>
+    // Funzione per mescolare gli elementi (algoritmo di Fisher–Yates)
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Prendiamo la galleria
+    const galleryContainer = document.querySelector('.gallery');
+    const items = Array.from(galleryContainer.children);
+
+    // Mescoliamo e riappendiamo
+    const shuffled = shuffle(items);
+    shuffled.forEach(item => galleryContainer.appendChild(item));
+
     const gallery = document.querySelectorAll('.gallery img');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.querySelector('.lightbox-img');
@@ -192,7 +209,7 @@
       lightboxImg.src = gallery[currentIndex].src;
     });
   </script>
-  <footer style="background-color:#222; color:white; text-align:center; padding:15px 0; display:flex; justify-content:center; align-items:center; gap:10px; flex-wrap:wrap;">
+  <footer style="background-color:#222; color:white; text-align:center; padding:25px 0; display:flex; justify-content:center; align-items:center; gap:10px; flex-wrap:wrap; font-size: 1.2rem;">
     <span>© Giovanni Russo</span>
     <a href="https://www.instagram.com/giovannirs_16" target="_blank" style="display:inline-flex; align-items:center;">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
