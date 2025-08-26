@@ -3,12 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La mia Galleria Fotografica</title>
+  <title>Best Photos</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-color: #f0f0f0;
+      --header-color: #222;
+      --text-color: white;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: var(--bg-color);
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background-color: var(--header-color);
+      color: var(--text-color);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .close, .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      color: white;
+      user-select: none;
+      font-size: 40px;
+    }
+
+    .close { top: 20px; right: 30px; }
+    .prev, .next { top: 50%; padding: 16px; font-size: 50px; margin-top: -25px; }
+    .prev { left: 20px; }
+    .next { right: 20px; }
+
+    @media (max-width: 500px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>La mia Galleria Fotografica</h1>
+  <header style="display:flex; align-items:center; justify-content:center; gap:10px; padding:2rem; background-color:#222; color:white;">
+    <div style="width:50px; height:50px; border:2px solid white; display:flex; align-items:center; justify-content:center; border-radius:5px;">
+      <span style="font-weight:bold;">🎞️</span>
+    </div>
+    <h1 style="margin:0; font-size:2rem;">Foto che sono venute bene</h1>
   </header>
 
   <main>
@@ -18,34 +100,35 @@
       <img src="images/foto3.jpg" alt="Foto 3">
       <img src="images/foto4.jpg" alt="Foto 4">
       <img src="images/foto5.jpg" alt="Foto 5">
-      <img src="images/foto6.JPG" alt="Foto 5">
-      <img src="images/foto7.JPG" alt="Foto 5">
-      <img src="images/foto8.jpg" alt="Foto 5">
-      <img src="images/foto9.jpg" alt="Foto 5">
-      <img src="images/foto10.jpg" alt="Foto 5">
-      <img src="images/foto11.jpg" alt="Foto 5">
-      <img src="images/foto12.jpg" alt="Foto 5">
-      <img src="images/foto13.jpg" alt="Foto 5">
-      <img src="images/foto14.jpg" alt="Foto 1">
-      <img src="images/foto15.jpg" alt="Foto 2">
-      <img src="images/foto16.jpg" alt="Foto 3">
-      <img src="images/foto17.jpg" alt="Foto 4">
-      <img src="images/foto18.jpg" alt="Foto 5">
-      <img src="images/foto19.jpg" alt="Foto 5">
-      <img src="images/foto20.jpg" alt="Foto 5">
-      <img src="images/foto21.jpg" alt="Foto 5">
-      <img src="images/foto22.jpg" alt="Foto 5">
-      <img src="images/foto23.jpg" alt="Foto 5">
-      <img src="images/foto24.jpg" alt="Foto 5">
-      <img src="images/foto25.jpg" alt="Foto 1">
-      <img src="images/foto26.jpg" alt="Foto 2">
-      <img src="images/foto27.jpg" alt="Foto 3">
-      <img src="images/foto28.jpg" alt="Foto 4">
-      <img src="images/foto29.jpg" alt="Foto 5">
-      <img src="images/foto30.jpg" alt="Foto 5">
-      <img src="images/foto31.jpg" alt="Foto 5">
-      <img src="images/foto32.jpg" alt="Foto 5">
-      <img src="images/foto33.jpg" alt="Foto 5">
+      <img src="images/foto6.JPG" alt="Foto 6">
+      <img src="images/foto7.JPG" alt="Foto 7">
+      <img src="images/foto8.jpg" alt="Foto 8">
+      <img src="images/foto9.jpg" alt="Foto 9">
+      <img src="images/foto10.jpg" alt="Foto 10">
+      <img src="images/foto11.jpg" alt="Foto 11">
+      <img src="images/foto12.jpg" alt="Foto 12">
+      <img src="images/foto13.jpg" alt="Foto 13">
+      <img src="images/foto14.jpg" alt="Foto 14">
+      <img src="images/foto15.jpg" alt="Foto 15">
+      <img src="images/foto16.jpg" alt="Foto 16">
+      <img src="images/foto17.jpg" alt="Foto 17">
+      <img src="images/foto18.jpg" alt="Foto 18">
+      <img src="images/foto19.jpg" alt="Foto 19">
+      <img src="images/foto20.jpg" alt="Foto 20">
+      <img src="images/foto21.jpg" alt="Foto 21">
+      <img src="images/foto22.jpg" alt="Foto 22">
+      <img src="images/foto23.jpg" alt="Foto 23">
+      <img src="images/foto24.jpg" alt="Foto 24">
+      <img src="images/foto25.jpg" alt="Foto 25">
+      <img src="images/foto26.jpg" alt="Foto 26">
+      <img src="images/foto27.jpg" alt="Foto 27">
+      <img src="images/foto28.jpg" alt="Foto 28">
+      <img src="images/foto29.jpg" alt="Foto 29">
+      <img src="images/foto30.jpg" alt="Foto 30">
+      <img src="images/foto31.jpg" alt="Foto 31">
+      <img src="images/foto32.jpg" alt="Foto 32">
+      <img src="images/foto33.jpg" alt="Foto 33">
+    </div>
   </main>
 
   <!-- Lightbox -->
@@ -55,10 +138,6 @@
     <a class="prev">&#10094;</a>
     <a class="next">&#10095;</a>
   </div>
-
-  <footer>
-    <p>© 2025 La mia galleria</p>
-  </footer>
 
   <script>
     const gallery = document.querySelectorAll('.gallery img');
@@ -78,9 +157,11 @@
       });
     });
 
-    closeBtn.addEventListener('click', () => {
-      lightbox.style.display = 'none';
-    });
+    const closeLightbox = () => { lightbox.style.display = 'none'; };
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
 
     nextBtn.addEventListener('click', () => {
       currentIndex = (currentIndex + 1) % gallery.length;
@@ -91,11 +172,16 @@
       currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
       lightboxImg.src = gallery[currentIndex].src;
     });
-
-    // Chiudi cliccando fuori immagine
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) lightbox.style.display = 'none';
-    });
   </script>
+  <footer style="background-color:#222; color:white; text-align:center; padding:15px 0; display:flex; justify-content:center; align-items:center; gap:10px; flex-wrap:wrap;">
+    <span>© Giovanni Russo</span>
+    <a href="https://www.instagram.com/giovannirs_16" target="_blank" style="display:inline-flex; align-items:center;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+        <circle cx="12" cy="12" r="4.5"></circle>
+        <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+      </svg>
+    </a>
+  </footer>
 </body>
 </html>
