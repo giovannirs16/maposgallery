@@ -325,8 +325,9 @@
     <script>
       // Tempo finale casuale tra 2:30 e 5:00
       const totalTime = Math.floor(Math.random() * (300 - 150 + 1)) + 150;
-      // Tempo iniziale casuale inferiore al finale
-      const currentTime = Math.floor(Math.random() * totalTime);
+      // Tempo iniziale casuale inferiore al finale, minimo 40 secondi
+      const minStart = 35;
+      const currentTime = Math.floor(Math.random() * (totalTime - minStart + 1)) + minStart;
 
       const progressPercent = (currentTime / totalTime) * 100;
       document.getElementById("timeline-progress").style.width = progressPercent + "%";
