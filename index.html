@@ -250,6 +250,16 @@
     }
     .side-arrow.left { left: 20px; }
     .side-arrow.right { right: 20px; }
+
+    .lightbox-zone {
+      position: absolute;
+      top: 20%;
+      width: 50%;
+      height: 60%;
+      cursor: pointer;
+    }
+    .left-zone { left: 0; }
+    .right-zone { right: 0; }
   </style>
 </head>
 <body>
@@ -379,6 +389,8 @@
     <img class="lightbox-img" src="" alt="">
     <span class="side-arrow left">‹</span>
     <span class="side-arrow right">›</span>
+    <div class="lightbox-zone left-zone"></div>
+    <div class="lightbox-zone right-zone"></div>
   </div>
   <script>
   function shuffle(array) {
@@ -496,6 +508,20 @@
   });
 
   rightArrow.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % gallery.length;
+    lightboxImg.src = gallery[currentIndex].src;
+  });
+
+  // Overlay zone click handlers
+  const leftZone = document.querySelector('.left-zone');
+  const rightZone = document.querySelector('.right-zone');
+
+  leftZone.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+    lightboxImg.src = gallery[currentIndex].src;
+  });
+
+  rightZone.addEventListener('click', () => {
     currentIndex = (currentIndex + 1) % gallery.length;
     lightboxImg.src = gallery[currentIndex].src;
   });
