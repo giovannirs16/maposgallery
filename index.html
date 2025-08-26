@@ -228,6 +228,23 @@
       display:inline-flex; 
       align-items:center;
     }
+    .side-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 3rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      user-select: none;
+      z-index: 1010;
+    }
+    .lightbox:hover .side-arrow {
+      opacity: 1;
+    }
+    .side-arrow.left { left: 20px; }
+    .side-arrow.right { right: 20px; }
   </style>
 </head>
 <body>
@@ -355,48 +372,66 @@
   <div id="lightbox" class="lightbox">
     <span class="close">&times;</span>
     <img class="lightbox-img" src="" alt="">
-    <a class="prev">&#10094;</a>
-    <a class="next">&#10095;</a>
+    <span class="side-arrow left">‹</span>
+    <span class="side-arrow right">›</span>
   </div>
   <script>
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
-    const galleryContainer = document.querySelector('.gallery');
-    const items = Array.from(galleryContainer.children);
-    const shuffled = shuffle(items);
-    shuffled.forEach(item => galleryContainer.appendChild(item));
-    const gallery = document.querySelectorAll('.gallery img');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.querySelector('.lightbox-img');
-    const closeBtn = document.querySelector('.close');
-    const nextBtn = document.querySelector('.next');
-    const prevBtn = document.querySelector('.prev');
-    let currentIndex = 0;
-    gallery.forEach((img, index) => {
-      img.addEventListener('click', () => {
-        lightbox.style.display = 'flex';
-        lightboxImg.src = img.src;
-        currentIndex = index;
-      });
+    return array;
+  }
+
+  const galleryContainer = document.querySelector('.gallery');
+  const items = Array.from(galleryContainer.children);
+  const shuffled = shuffle(items);
+  shuffled.forEach(item => galleryContainer.appendChild(item));
+
+  const gallery = document.querySelectorAll('.gallery img');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.querySelector('.lightbox-img');
+  const closeBtn = document.querySelector('.close');
+  let currentIndex = 0;
+
+  gallery.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      lightbox.style.display = 'flex';
+      lightboxImg.src = img.src;
+      currentIndex = index;
     });
-    const closeLightbox = () => { lightbox.style.display = 'none'; };
-    closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
-    nextBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % gallery.length;
-      lightboxImg.src = gallery[currentIndex].src;
-    });
-    prevBtn.addEventListener('click', () => {
+  });
+
+  const closeLightbox = () => { lightbox.style.display = 'none'; };
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if(e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeLightbox();
+  });
+
+  // Clic sui lati destro/sinistro dell'immagine per scorrere
+  lightboxImg.addEventListener('click', (e) => {
+    const rect = lightboxImg.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    if(clickX < rect.width / 2){
+      // clic lato sinistro → foto precedente
       currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-      lightboxImg.src = gallery[currentIndex].src;
-    });
-  </script>
+    } else {
+      // clic lato destro → foto successiva
+      currentIndex = (currentIndex + 1) % gallery.length;
+    }
+    lightboxImg.src = gallery[currentIndex].src;
+  });
+
+  gallery.forEach(img => {
+    if(img.naturalWidth > img.naturalHeight) {
+      img.parentElement.classList.add("landscape");
+    }
+  });
+</script>
   <script>
     gallery.forEach(img => {
       if(img.naturalWidth > img.naturalHeight) {
@@ -415,5 +450,37 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="20" height="20">
   </a>
 </footer>
+<script>
+  const sideArrows = document.querySelectorAll('.side-arrow');
+  let arrowTimeout;
+
+  function showArrowsTemporarily() {
+    sideArrows.forEach(arrow => arrow.style.opacity = '1');
+    if (arrowTimeout) clearTimeout(arrowTimeout);
+    arrowTimeout = setTimeout(() => {
+      sideArrows.forEach(arrow => arrow.style.opacity = '0');
+    }, 3000);
+  }
+
+  // Mostra le frecce all'apertura della lightbox
+  gallery.forEach(img => {
+    img.addEventListener('click', () => {
+      showArrowsTemporarily();
+    });
+  });
+
+  // Riavvia il timer anche al cambio foto
+  lightboxImg.addEventListener('click', (e) => {
+    const rect = lightboxImg.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    if(clickX < rect.width / 2){
+      currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+    } else {
+      currentIndex = (currentIndex + 1) % gallery.length;
+    }
+    lightboxImg.src = gallery[currentIndex].src;
+    showArrowsTemporarily();
+  });
+</script>
 </body>
 </html>
