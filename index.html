@@ -38,6 +38,12 @@
       transition: transform 0.3s;
       transform-origin: center;
     }
+    .img-wrapper.landscape {
+      column-span: all;
+    }
+    .img-wrapper.landscape img {
+      width: 100%;
+    }
     .img-wrapper img:hover {
       transform: scale(1.02);
     }
@@ -86,14 +92,149 @@
     .prev, .next { top: 50%; padding: 16px; font-size: 50px; margin-top: -25px; }
     .prev { left: 20px; }
     .next { right: 20px; }
+    .header-flex {
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      gap:10px; 
+      padding:2rem; 
+      background-color:#222; 
+      color:white; 
+      flex-wrap:wrap;
+    }
+    .header-logo-container {
+      width:100px; 
+      height:100px; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center;
+    }
+    .header-logo-container img {
+      width:100%; 
+      height:100%; 
+      object-fit:contain;
+    }
+    .header-title {
+      margin:0; 
+      font-size:2rem;
+    }
+    .recommendations-container {
+      display:flex; 
+      justify-content:center; 
+      align-items:flex-start; 
+      gap:20px; 
+      flex-wrap:wrap; 
+      margin:20px;
+    }
+    .music-player-cc {
+      flex:1; 
+      min-width:250px; 
+      max-width:350px; 
+      min-height:100px; 
+      border-radius:20px; 
+      overflow:hidden; 
+      background:rgba(48, 48, 52, 0.362); 
+      border:none; 
+      backdrop-filter: blur(20px); 
+      display:flex; 
+      flex-direction:row; 
+      align-items:center; 
+      padding:15px; 
+      font-family:-apple-system, BlinkMacSystemFont, sans-serif; 
+      box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    }
+    .music-cover {
+      width:35%; 
+      flex-shrink:0; 
+      border-radius:12px; 
+      overflow:hidden; 
+      margin-right:10px;
+    }
+    .music-cover img {
+      width:100%; 
+      height:auto; 
+      object-fit:contain;
+    }
+    .music-info {
+      width:65%; 
+      color:rgba(255, 255, 255, 0.857); 
+      display:flex; 
+      flex-direction:column; 
+      align-items:flex-start; 
+      padding:5px;
+    }
+    .music-info span:first-child {
+      font-weight:600; 
+      font-size:14px; 
+      white-space:nowrap; 
+      overflow:hidden; 
+      text-overflow:ellipsis;
+    }
+    .music-info span:nth-child(2) {
+      font-size:12px; 
+      color:rgba(215, 215, 226, 0.981); 
+      white-space:nowrap; 
+      overflow:hidden; 
+      text-overflow:ellipsis;
+    }
+    .timeline-container {
+      width:100%; 
+      margin:10px 0;
+    }
+    .timeline-times {
+      width:100%; 
+      display:flex; 
+      justify-content:space-between; 
+      font-size:12px; 
+      color:rgba(255, 255, 255, 0.829);
+    }
+    .timeline-bar {
+      width:100%; 
+      height:5px; 
+      background:rgba(255,255,255,0.2); 
+      border-radius:2.5px; 
+      position:relative; 
+      margin-top:3px;
+    }
+    #timeline-progress {
+      width:0%; 
+      height:100%; 
+      background:rgba(255, 255, 255, 0.83); 
+      border-radius:2.5px;
+    }
+    .music-controls {
+      display:flex; 
+      gap:35px; 
+      justify-content:center; 
+      align-items:center; 
+      width:100%; 
+      margin-top:5px; 
+      font-size:22px;
+    }
+    footer {
+      background-color:#222; 
+      color:white; 
+      text-align:center; 
+      padding:25px 0; 
+      display:flex; 
+      justify-content:center; 
+      align-items:center; 
+      gap:10px; 
+      flex-wrap:wrap; 
+      font-size: 1.2rem;
+    }
+    footer a {
+      display:inline-flex; 
+      align-items:center;
+    }
   </style>
 </head>
 <body>
-  <header style="display:flex; align-items:center; justify-content:center; gap:10px; padding:2rem; background-color:#222; color:white; flex-wrap:wrap;">
-    <div style="width:100px; height:100px; display:flex; align-items:center; justify-content:center;">
-      <img src="images/logo.png" alt="Logo" style="width:100%; height:100%; object-fit:contain;">
+  <header class="header-flex">
+    <div class="header-logo-container">
+      <img src="images/logo.png" alt="Logo">
     </div>
-    <h1 style="margin:0; font-size:2rem;">Mapo's Gallery</h1>
+    <h1 class="header-title">Mapo's Gallery</h1>
   </header>
   <main>
     <div class="gallery">
@@ -153,31 +294,31 @@
 
     </div>
   </main>
-  <div class="recommendations-container" style="display:flex; justify-content:center; align-items:flex-start; gap:20px; flex-wrap:wrap; margin:20px;">
-    <section class="music-player-cc" style="flex:1; min-width:250px; max-width:350px; min-height:100px; border-radius:20px; overflow:hidden; background:rgba(48, 48, 52, 0.362); border:none; backdrop-filter: blur(20px); display:flex; flex-direction:row; align-items:center; padding:15px; font-family:-apple-system, BlinkMacSystemFont, sans-serif; box-shadow:0 4px 10px rgba(0,0,0,0.15);">
+  <div class="recommendations-container">
+    <section class="music-player-cc">
       <!-- Copertina -->
-      <div style="width:35%; flex-shrink:0; border-radius:12px; overflow:hidden; margin-right:10px;">
-        <img id="cover-image" src="" alt="Copertina Canzone" style="width:100%; height:auto; object-fit:contain;">
+      <div class="music-cover">
+        <img id="cover-image" src="" alt="Copertina Canzone">
       </div>
 
       <!-- Info e timeline -->
-      <div style="width:65%; color:rgba(255, 255, 255, 0.857); display:flex; flex-direction:column; align-items:flex-start; padding:5px;">
-        <span style="font-weight:600; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">The Spins</span>
-        <span style="font-size:12px; color:rgba(215, 215, 226, 0.981); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Mac Miller, Empire Of The Sun</span>
+      <div class="music-info">
+        <span>The Spins</span>
+        <span>Mac Miller, Empire Of The Sun</span>
 
         <!-- Timeline -->
-        <div style="width:100%; margin:10px 0;">
-          <div style="width:100%; display:flex; justify-content:space-between; font-size:12px; color:rgba(255, 255, 255, 0.829);">
+        <div class="timeline-container">
+          <div class="timeline-times">
             <span id="time-start">0:00</span>
             <span id="time-end">3:30</span>
           </div>
-          <div style="width:100%; height:5px; background:rgba(255,255,255,0.2); border-radius:2.5px; position:relative; margin-top:3px;">
-            <div id="timeline-progress" style="width:0%; height:100%; background:rgba(255, 255, 255, 0.83); border-radius:2.5px;"></div>
+          <div class="timeline-bar">
+            <div id="timeline-progress"></div>
           </div>
         </div>
 
         <!-- Pulsanti sotto -->
-        <div style="display:flex; gap:35px; justify-content:center; align-items:center; width:100%; margin-top:5px; font-size:22px;">
+        <div class="music-controls">
           <div style="cursor:pointer; font-family: Arial, sans-serif;">⏮</div>
           <div style="cursor:pointer; font-family: Arial, sans-serif;">▶</div>
           <div style="cursor:pointer; font-family: Arial, sans-serif;">⏭</div>
@@ -253,9 +394,16 @@
       lightboxImg.src = gallery[currentIndex].src;
     });
   </script>
-  <footer style="background-color:#222; color:white; text-align:center; padding:25px 0; display:flex; justify-content:center; align-items:center; gap:10px; flex-wrap:wrap; font-size: 1.2rem;">
+  <script>
+    gallery.forEach(img => {
+      if(img.naturalWidth > img.naturalHeight) {
+        img.parentElement.classList.add("landscape");
+      }
+    });
+  </script>
+  <footer>
     <span>© Giovanni Russo</span>
-    <a href="https://www.instagram.com/giovannirs_16" target="_blank" style="display:inline-flex; align-items:center;">
+    <a href="https://www.instagram.com/giovannirs_16" target="_blank">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
         <circle cx="12" cy="12" r="4.5"></circle>
