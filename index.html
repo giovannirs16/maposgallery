@@ -464,7 +464,7 @@
     if (arrowTimeout) clearTimeout(arrowTimeout);
     arrowTimeout = setTimeout(() => {
       sideArrows.forEach(arrow => arrow.style.opacity = '0');
-    }, 1800);
+    }, 2000);
   }
 
   // Mostra le frecce all'apertura della lightbox
@@ -484,7 +484,6 @@
       currentIndex = (currentIndex + 1) % gallery.length;
     }
     lightboxImg.src = gallery[currentIndex].src;
-    showArrowsTemporarily();
   });
 
   // Frecce cliccabili sul lightbox
@@ -494,13 +493,11 @@
   leftArrow.addEventListener('click', () => {
     currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
     lightboxImg.src = gallery[currentIndex].src;
-    showArrowsTemporarily();
   });
 
   rightArrow.addEventListener('click', () => {
     currentIndex = (currentIndex + 1) % gallery.length;
     lightboxImg.src = gallery[currentIndex].src;
-    showArrowsTemporarily();
   });
 </script>
 </body>
