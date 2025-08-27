@@ -346,14 +346,32 @@
     </div>
   </main>
   <div class="spotify-container">
-  <iframe 
-    src="https://open.spotify.com/embed/track/7FAFkQQZFeNwOFzTrSDFIh?utm_source=generator&theme=0"
-    frameborder="0"
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-    loading="lazy">
-  </iframe>
-</div>
-  <!-- 
+    <iframe id="spotify-player"
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <script>
+    // Lista di link Spotify
+    const tracks = [
+      "https://open.spotify.com/embed/track/7FAFkQQZFeNwOFzTrSDFIh?utm_source=generator",
+      "https://open.spotify.com/embed/track/6xV7Be6XEvkSnighmh2Tzj?utm_source=generator",
+      "https://open.spotify.com/embed/track/5KUNwkaNf8l5A9sXZhiCgI?utm_source=generator",
+      "https://open.spotify.com/embed/track/1QPreu0BNOrUfEb8HTd2qG?utm_source=generator",
+      "https://open.spotify.com/embed/track/2cGxRwrMyEAp8dEbuZaVv6?utm_source=generator",
+      "https://open.spotify.com/embed/track/0d28khcov6AiegSCpG5TuT?utm_source=generator",
+      "https://open.spotify.com/embed/track/2f3TSWcQlu8sRr5ymkVRFl?utm_source=generator"
+    ];
+
+    // Scegli un link a caso
+    const randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+
+    // Inserisci il link nell'iframe
+    document.getElementById("spotify-player").src = randomTrack;
+  </script>
+  <!--     vecchio rirpoduttore stile iPhone
   <div class="recommendations-container">
     <section class="music-player-cc">
       <!-- Copertina 
