@@ -261,6 +261,25 @@
     }
     .left-zone { left: 0; }
     .right-zone { right: 0; }
+
+    .spotify-container {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0 10px 0;
+    }
+
+  .spotify-container iframe {
+    width: 100%;
+    max-width: 350px;
+    height: 175px;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 500px) {
+    .spotify-container iframe {
+    height: 140px;
+    }
+  }
   </style>
 </head>
 <body>
@@ -326,14 +345,14 @@
       <div class="img-wrapper"><img src="images/foto53.webp" alt="Foto 18" loading="lazy"></div>
     </div>
   </main>
-  <div style="display:flex; justify-content:center; margin:40px 0 10px 0;">
-    <iframe style="border-radius:12px"
-            src="https://open.spotify.com/embed/track/7FAFkQQZFeNwOFzTrSDFIh?utm_source=generator&theme=0"
-            width="350" height="160" frameborder="0"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy">
-    </iframe>
-  </div>
+  <div class="spotify-container">
+  <iframe 
+    src="https://open.spotify.com/embed/track/7FAFkQQZFeNwOFzTrSDFIh?utm_source=generator&theme=0"
+    frameborder="0"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy">
+  </iframe>
+</div>
   <!-- 
   <div class="recommendations-container">
     <section class="music-player-cc">
