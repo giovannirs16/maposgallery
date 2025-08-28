@@ -42,7 +42,7 @@
     .img-wrapper img:hover {
       transform: scale(1.02);
     }
-    @media (max-width: 800px) {
+    @media (max-width: 820px) {
       .gallery {
         column-count: 3;
       }
@@ -301,66 +301,6 @@
     // Inserisci il link nell'iframe
     document.getElementById("spotify-player").src = randomTrack;
   </script>
-  <!--     vecchio rirpoduttore stile iPhone
-  <div class="recommendations-container">
-    <section class="music-player-cc">
-      <!-- Copertina 
-      <div class="music-cover">
-        <img id="cover-image" src="" alt="Copertina Canzone">
-      </div>
-
-      <!-- Info e timeline 
-      <div class="music-info">
-        <span class="song-title">The Spins</span>
-        <span class="song-subtitle">Mac Miller, Empire Of The Sun</span>
-
-        <!-- Timeline 
-        <div class="timeline-container">
-          <div class="timeline-times">
-            <span id="time-start">0:00</span>
-            <span id="time-end">3:30</span>
-          </div>
-          <div class="timeline-bar">
-            <div id="timeline-progress"></div>
-          </div>
-        </div>
-
-        <!-- Pulsanti sotto 
-        <div class="music-controls">
-          <div>⏮</div>
-          <div>▶</div>
-          <div>⏭</div>
-        </div>
-      </div>
-    </section>
-    <script>
-      // Imposta il tempo finale manualmente (in secondi)
-      const totalTime = 195; // durata canzone
-
-      // Imposta il tempo iniziale random, sempre >35s e < totalTime
-      const minStart = 35;
-      const currentTime = Math.floor(Math.random() * (totalTime - minStart)) + minStart;
-
-      // Aggiorna la barra di progresso
-      const progressPercent = (currentTime / totalTime) * 100;
-      document.getElementById("timeline-progress").style.width = progressPercent + "%";
-
-      // Mostra il tempo iniziale in mm:ss
-      const minutes = Math.floor(currentTime / 60);
-      const seconds = currentTime % 60;
-      document.getElementById("time-start").textContent = `${minutes}:${seconds.toString().padStart(2,'0')}`;
-
-      // Mostra il tempo finale in mm:ss
-      const endMinutes = Math.floor(totalTime / 60);
-      const endSeconds = totalTime % 60;
-      document.getElementById("time-end").textContent = `${endMinutes}:${endSeconds.toString().padStart(2,'0')}`;
-    </script>
-    <script>
-      const coverUrl = "https://i.scdn.co/image/ab67616d0000b273463d73e65c7b95a17898388b"; 
-      document.getElementById("cover-image").src = coverUrl;
-    </script>
-  </div>
-  -->
   <div id="lightbox" class="lightbox">
     <span class="close">&times;</span>
     <img class="lightbox-img" src="" alt="">
