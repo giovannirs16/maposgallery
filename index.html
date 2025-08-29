@@ -387,21 +387,14 @@
       img.parentElement.classList.add("landscape");
     }
   });
-</script>
-  <script>
-  // Impedisci il menu contestuale sul lightbox (immagine ingrandita)
-  document.addEventListener("contextmenu", function(e) {
-    // Solo se il lightbox è visibile e il bersaglio è dentro il lightbox
-    const lightbox = document.getElementById('lightbox');
-    if (lightbox && lightbox.style.display === 'flex' && lightbox.contains(e.target)) {
-      e.preventDefault();
-    }
-  });
-  // Impedisci pressione prolungata su mobile per salvare le immagini
-  document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('touchstart', e => e.preventDefault());
-  });
-</script>
+// Impedisci il menu contestuale sul lightbox (immagine ingrandita)
+document.addEventListener("contextmenu", function(e) {
+  // Solo se il lightbox è visibile e il bersaglio è dentro il lightbox
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox && lightbox.style.display === 'flex' && lightbox.contains(e.target)) {
+    e.preventDefault();
+  }
+});
 </script>
   <footer>
   <span>© Giovanni Russo</span>
