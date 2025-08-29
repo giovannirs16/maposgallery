@@ -356,6 +356,16 @@
   });
   document.addEventListener('keydown', (e) => {
     if(e.key === 'Escape') closeLightbox();
+    // Navigazione con frecce quando la lightbox è aperta
+    if(lightbox.style.display === 'flex') {
+      if(e.key === 'ArrowLeft') {
+        currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+        lightboxImg.src = gallery[currentIndex].src;
+      } else if(e.key === 'ArrowRight') {
+        currentIndex = (currentIndex + 1) % gallery.length;
+        lightboxImg.src = gallery[currentIndex].src;
+      }
+    }
   });
 
   // Clic sui lati destro/sinistro dell'immagine per scorrere
