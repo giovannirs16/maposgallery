@@ -612,8 +612,6 @@ function showAllImages() {
 
 // Gestione apertura/chiusura overlay
 openBtn.addEventListener('click', () => {
-  // Mostra tutte le immagini come il titolo del sito
-  allImages.forEach(img => img.parentElement.style.display = 'block');
   overlay.classList.add('active');
 });
 overlayCloseBtn.addEventListener('click', () => { overlay.classList.remove('active'); showAllImages(); });
