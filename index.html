@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&family=Special+Elite&display=swap" rel="stylesheet">
   <title>GR - Mapo's Gallery</title>
   <link rel="stylesheet" href="style.css">
   <meta name="google-site-verification" content="w5xj7-mtfIhu7HeYyJY5-fyIE4eIj_wLUhlL7CjPr8U" />
@@ -15,15 +16,93 @@
     gtag('config', 'G-X6B6QJQEZT');
   </script>
   <style>
+    .collections-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-size: 2rem;
+      color: white;
+    }
+    .collections-btn svg rect {
+      transition: all 0.3s ease;
+    }
+
+    /* UNIVERSAL CSS for collections overlay transition */
+    .collections-overlay {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(20, 20, 20, 0.97);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-20px);
+      transition: opacity 0.4s ease, transform 0.4s ease; /* transizione universale */
+    }
+
+    .collections-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .collections-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      text-align: center;
+    }
+
+    .collections-menu a {
+      color: white;
+      font-size: 2rem;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .collections-menu a:hover {
+      color: #aaa;
+    }
+
+    .close-collections {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 3rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    .collections-social {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 50px;
+    }
+    .collections-social a img {
+      display: block;
+      width: 40px;
+      height: 40px;
+    }
     :root {
       --bg-color: #f0f0f0;
       --header-color: #222;
       --text-color: white;
     }
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Special Elite', monospace;
       margin: 0;
       background-color: var(--bg-color);
+    }
+    header, footer, .collections-menu a, .header-title {
+      font-family: 'Special Elite', monospace;
     }
     header {
       text-align: center;
@@ -64,10 +143,6 @@
       .header-flex {
         padding: 1rem;
         gap: 10px;
-      }
-      .header-logo-container {
-        width: 70px;
-        height: 70px;
       }
       .header-title {
         font-size: 1.4rem;
@@ -111,30 +186,17 @@
     .prev { left: 20px; }
     .next { right: 20px; }
     .header-flex {
-      display:flex; 
-      align-items:center; 
-      justify-content:center; 
-      gap:15px; 
-      padding:2rem; 
-      background-color:#222; 
-      color:white; 
-      flex-wrap:wrap;
-    }
-    .header-logo-container {
-      width:100px; 
-      height:100px; 
-      display:flex; 
-      align-items:center; 
-      justify-content:center;
-    }
-    .header-logo-container img {
-      width:100%; 
-      height:100%; 
-      object-fit:contain;
+      display: flex;
+      align-items: center;        /* centra verticalmente tutti gli elementi */
+      justify-content: space-between; /* titolo a sinistra, menu a destra */
+      padding: 2rem;
+      background-color: #222;
+      color: white;
     }
     .header-title {
       margin:0; 
-      font-size:2rem;
+      font-size:1.8rem;
+      font-weight: 600;
     }
     .recommendations-container {
       display:flex; 
@@ -154,7 +216,8 @@
       align-items:center; 
       gap:10px; 
       flex-wrap:wrap; 
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      font-weight: 300; /* testo più sottile */
     }
     footer a {
       display:inline-flex; 
@@ -211,75 +274,95 @@
 </head>
 <body>
   <header class="header-flex">
-    <div class="header-logo-container">
-      <img src="images/logo.png" alt="Logo">
-    </div>
     <h1 class="header-title">Mapo's Gallery</h1>
+    <button id="open-collections" class="collections-btn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <rect y="4" width="24" height="2"/>
+        <rect y="11" width="24" height="2"/>
+        <rect y="18" width="24" height="2"/>
+      </svg>
+    </button>
   </header>
   <main>
     <div class="gallery">
-<div class="img-wrapper"><img src="images/photo1.webp" alt="photo 1" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo2.webp" alt="photo 2" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo3.webp" alt="photo 3" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo4.webp" alt="photo 4" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo5.webp" alt="photo 5" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo6.webp" alt="photo 6" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo7.webp" alt="photo 7" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo8.webp" alt="photo 8" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo9.webp" alt="photo 9" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo10.webp" alt="photo 10" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo11.webp" alt="photo 11" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo12.webp" alt="photo 12" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo13.webp" alt="photo 13" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo14.webp" alt="photo 14" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo15.webp" alt="photo 15" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo16.webp" alt="photo 16" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo17.webp" alt="photo 17" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo18.webp" alt="photo 18" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo19.webp" alt="photo 19" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo20.webp" alt="photo 20" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo21.webp" alt="photo 21" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo22.webp" alt="photo 22" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo23.webp" alt="photo 23" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo24.webp" alt="photo 24" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo25.webp" alt="photo 25" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo26.webp" alt="photo 26" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo27.webp" alt="photo 27" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo28.webp" alt="photo 28" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo29.webp" alt="photo 29" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo30.webp" alt="photo 30" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo31.webp" alt="photo 31" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo32.webp" alt="photo 32" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo33.webp" alt="photo 33" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo34.webp" alt="photo 34" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo35.webp" alt="photo 35" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo36.webp" alt="photo 36" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo37.webp" alt="photo 37" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo38.webp" alt="photo 38" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo39.webp" alt="photo 39" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo40.webp" alt="photo 40" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo41.webp" alt="photo 41" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo42.webp" alt="photo 42" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo43.webp" alt="photo 43" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo44.webp" alt="photo 44" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo45.webp" alt="photo 45" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo46.webp" alt="photo 46" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo47.webp" alt="photo 47" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo48.webp" alt="photo 48" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo49.webp" alt="photo 49" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo50.webp" alt="photo 50" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo51.webp" alt="photo 51" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo52.webp" alt="photo 52" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo53.webp" alt="photo 53" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo54.webp" alt="photo 54" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo55.webp" alt="photo 55" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo56.webp" alt="photo 56" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo57.webp" alt="photo 57" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo58.webp" alt="photo 58" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo59.webp" alt="photo 59" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
-<div class="img-wrapper"><img src="images/photo60.webp" alt="photo 60" loading="lazy" oncontextmenu="return false;" draggable="false"></div>
+<div class="img-wrapper"><img src="images/photo1.webp" alt="photo 1" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="Switzerland"></div>
+<div class="img-wrapper"><img src="images/photo2.webp" alt="photo 2" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="Switzerland"></div>
+<div class="img-wrapper"><img src="images/photo3.webp" alt="photo 3" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo4.webp" alt="photo 4" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo5.webp" alt="photo 5" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo6.webp" alt="photo 6" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo7.webp" alt="photo 7" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo8.webp" alt="photo 8" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo9.webp" alt="photo 9" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo10.webp" alt="photo 10" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo11.webp" alt="photo 11" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo12.webp" alt="photo 12" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo13.webp" alt="photo 13" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo14.webp" alt="photo 14" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo15.webp" alt="photo 15" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo16.webp" alt="photo 16" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo17.webp" alt="photo 17" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo18.webp" alt="photo 18" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo19.webp" alt="photo 19" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo20.webp" alt="photo 20" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo21.webp" alt="photo 21" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo22.webp" alt="photo 22" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo23.webp" alt="photo 23" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo24.webp" alt="photo 24" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo25.webp" alt="photo 25" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo26.webp" alt="photo 26" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo27.webp" alt="photo 27" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo28.webp" alt="photo 28" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo29.webp" alt="photo 29" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo30.webp" alt="photo 30" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo31.webp" alt="photo 31" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo32.webp" alt="photo 32" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo33.webp" alt="photo 33" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo34.webp" alt="photo 34" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo35.webp" alt="photo 35" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo36.webp" alt="photo 36" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo37.webp" alt="photo 37" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="Switzerland"></div>
+<div class="img-wrapper"><img src="images/photo38.webp" alt="photo 38" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="Switzerland"></div>
+<div class="img-wrapper"><img src="images/photo39.webp" alt="photo 39" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="Switzerland"></div>
+<div class="img-wrapper"><img src="images/photo40.webp" alt="photo 40" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="Switzerland"></div>
+<div class="img-wrapper"><img src="images/photo41.webp" alt="photo 41" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="Switzerland"></div>
+<div class="img-wrapper"><img src="images/photo42.webp" alt="photo 42" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="Switzerland"></div>
+<div class="img-wrapper"><img src="images/photo43.webp" alt="photo 43" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="Switzerland"></div>
+<div class="img-wrapper"><img src="images/photo44.webp" alt="photo 44" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo45.webp" alt="photo 45" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo46.webp" alt="photo 46" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo47.webp" alt="photo 47" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo48.webp" alt="photo 48" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo49.webp" alt="photo 49" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo50.webp" alt="photo 50" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo51.webp" alt="photo 51" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo52.webp" alt="photo 52" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo53.webp" alt="photo 53" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo54.webp" alt="photo 54" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection="PPL"></div>
+<div class="img-wrapper"><img src="images/photo55.webp" alt="photo 55" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo56.webp" alt="photo 56" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo57.webp" alt="photo 57" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo58.webp" alt="photo 58" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo59.webp" alt="photo 59" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
+<div class="img-wrapper"><img src="images/photo60.webp" alt="photo 60" loading="lazy" oncontextmenu="return false;" draggable="false" data-collection=""></div>
     </div>
   </main>
+  <div id="collections-overlay" class="collections-overlay">
+    <span class="close-collections">&times;</span>
+    <div class="collections-menu">
+      <!-- I link delle collezioni saranno generati dinamicamente via JS -->
+    </div>
+    <div class="collections-social">
+      <!-- Instagram ufficiale -->
+      <a href="https://www.instagram.com/giovannirs_16" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" width="40" height="40">
+      </a>
+      <!-- WhatsApp -->
+      <a href="https://wa.me/393314316133" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="40" height="40">
+      </a>
+    </div>
+  </div>
   <div class="spotify-container">
     <iframe id="spotify-player"
       frameborder="0"
@@ -414,14 +497,6 @@ document.addEventListener("contextmenu", function(e) {
 </script>
   <footer>
   <span>© Giovanni Russo</span>
-  <!-- Instagram ufficiale -->
-  <a href="https://www.instagram.com/giovannirs_16" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" width="20" height="20">
-  </a>
-  <!-- WhatsApp -->
-  <a href="https://wa.me/393314316133" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="20" height="20">
-  </a>
 </footer>
 <script defer>
   const sideArrows = document.querySelectorAll('.side-arrow');
@@ -483,4 +558,70 @@ document.addEventListener("contextmenu", function(e) {
   });
 </script>
 </body>
+<script>
+const overlay = document.getElementById('collections-overlay');
+const openBtn = document.getElementById('open-collections');
+const overlayCloseBtn = document.querySelector('.close-collections');
+const collectionsMenu = document.querySelector('.collections-menu');
+const allImages = document.querySelectorAll('.gallery img');
+
+// Recupera tutte le collezioni presenti nelle immagini
+let allCollections = [...new Set(Array.from(allImages).map(img => img.dataset.collection).filter(c => c))];
+
+// Definisci l'ordine desiderato
+let desiredOrder = ["Switzerland", "PPL"]; // modifica qui l'ordine del menù
+
+// Ordina le collezioni secondo l'array desiderato
+let collections = desiredOrder.filter(name => allCollections.includes(name));
+
+// Genera link delle collezioni
+collectionsMenu.innerHTML = "";
+collections.forEach(name => {
+  const a = document.createElement('a');
+  a.href = "#";
+  a.textContent = name;
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    allImages.forEach(img => {
+      if(img.dataset.collection === name){
+        img.parentElement.style.display = 'block';
+      } else {
+        img.parentElement.style.display = 'none';
+      }
+    });
+    overlay.classList.remove('active');
+  });
+  collectionsMenu.appendChild(a);
+});
+
+// Aggiungi voce "Home" in fondo
+const homeItem = document.createElement('a');
+homeItem.href = "#";
+homeItem.textContent = "Tutte le foto";
+homeItem.addEventListener('click', (e) => {
+  e.preventDefault();
+  allImages.forEach(img => img.parentElement.style.display = 'block');
+  overlay.classList.remove('active');
+});
+collectionsMenu.appendChild(homeItem);
+
+// Mostra tutte le immagini quando si chiude il menu senza selezionare nulla
+function showAllImages() {
+  allImages.forEach(img => img.parentElement.style.display = 'block');
+}
+
+// Gestione apertura/chiusura overlay
+openBtn.addEventListener('click', () => {
+  // Mostra tutte le immagini come il titolo del sito
+  allImages.forEach(img => img.parentElement.style.display = 'block');
+  overlay.classList.add('active');
+});
+overlayCloseBtn.addEventListener('click', () => { overlay.classList.remove('active'); showAllImages(); });
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) { overlay.classList.remove('active'); showAllImages(); }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === "Escape") { overlay.classList.remove('active'); showAllImages(); }
+});
+</script>
 </html>
