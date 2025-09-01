@@ -614,12 +614,25 @@ function showAllImages() {
 openBtn.addEventListener('click', () => {
   overlay.classList.add('active');
 });
-overlayCloseBtn.addEventListener('click', () => { overlay.classList.remove('active'); showAllImages(); });
+
+function closeOverlaySmooth() {
+  overlay.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  overlay.style.opacity = '0';
+  overlay.style.transform = 'translateY(-20px)';
+  setTimeout(() => {
+    overlay.classList.remove('active');
+    overlay.style.opacity = '';
+    overlay.style.transform = '';
+    showAllImages();
+  }, 400); // durata corrispondente alla transizione
+}
+
+overlayCloseBtn.addEventListener('click', closeOverlaySmooth);
 overlay.addEventListener('click', (e) => {
-  if (e.target === overlay) { overlay.classList.remove('active'); showAllImages(); }
+  if (e.target === overlay) closeOverlaySmooth();
 });
 document.addEventListener('keydown', (e) => {
-  if (e.key === "Escape") { overlay.classList.remove('active'); showAllImages(); }
+  if (e.key === "Escape") closeOverlaySmooth();
 });
 </script>
 </html>
