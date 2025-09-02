@@ -439,12 +439,19 @@
   const lightboxImg = document.querySelector('.lightbox-img');
   const closeBtn = document.querySelector('.close');
   let currentIndex = 0;
+  // Array delle immagini visibili attuali (collezione selezionata)
+  let visibleImages = [];
+
+  const allImages = document.querySelectorAll('.gallery img');
 
   gallery.forEach((img, index) => {
     img.addEventListener('click', () => {
       lightbox.style.display = 'flex';
       lightboxImg.src = img.src;
-      currentIndex = index;
+
+      // Array delle immagini visibili attuali (collezione selezionata)
+      visibleImages = Array.from(allImages).filter(i => i.parentElement.style.display !== 'none');
+      currentIndex = visibleImages.indexOf(img);
     });
   });
 
@@ -453,16 +460,24 @@
   lightbox.addEventListener('click', (e) => {
     if(e.target === lightbox) closeLightbox();
   });
+
+  // Funzione per aggiornare l'immagine della lightbox
+  function updateLightboxImage() {
+    if (visibleImages.length > 0 && currentIndex >= 0 && currentIndex < visibleImages.length) {
+      lightboxImg.src = visibleImages[currentIndex].src;
+    }
+  }
+
   document.addEventListener('keydown', (e) => {
     if(e.key === 'Escape') closeLightbox();
     // Navigazione con frecce quando la lightbox è aperta
-    if(lightbox.style.display === 'flex') {
+    if(lightbox.style.display === 'flex' && visibleImages.length > 0) {
       if(e.key === 'ArrowLeft') {
-        currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-        lightboxImg.src = gallery[currentIndex].src;
+        currentIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
+        updateLightboxImage();
       } else if(e.key === 'ArrowRight') {
-        currentIndex = (currentIndex + 1) % gallery.length;
-        lightboxImg.src = gallery[currentIndex].src;
+        currentIndex = (currentIndex + 1) % visibleImages.length;
+        updateLightboxImage();
       }
     }
   });
@@ -473,12 +488,12 @@
     const clickX = e.clientX - rect.left;
     if(clickX < rect.width / 2){
       // clic lato sinistro → image precedente
-      currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+      currentIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
     } else {
       // clic lato destro → image successiva
-      currentIndex = (currentIndex + 1) % gallery.length;
+      currentIndex = (currentIndex + 1) % visibleImages.length;
     }
-    lightboxImg.src = gallery[currentIndex].src;
+    updateLightboxImage();
   });
 
   gallery.forEach(img => {
@@ -517,30 +532,24 @@ document.addEventListener("contextmenu", function(e) {
     });
   });
 
-  // Riavvia il timer anche al cambio image tramite click sui lati
-  lightboxImg.addEventListener('click', (e) => {
-    const rect = lightboxImg.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    if(clickX < rect.width / 2){
-      currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-    } else {
-      currentIndex = (currentIndex + 1) % gallery.length;
-    }
-    lightboxImg.src = gallery[currentIndex].src;
-  });
-
   // Frecce cliccabili sul lightbox
   const leftArrow = document.querySelector('.side-arrow.left');
   const rightArrow = document.querySelector('.side-arrow.right');
 
   leftArrow.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-    lightboxImg.src = gallery[currentIndex].src;
+    if (visibleImages.length > 0) {
+      currentIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
+      updateLightboxImage();
+      showArrowsTemporarily();
+    }
   });
 
   rightArrow.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % gallery.length;
-    lightboxImg.src = gallery[currentIndex].src;
+    if (visibleImages.length > 0) {
+      currentIndex = (currentIndex + 1) % visibleImages.length;
+      updateLightboxImage();
+      showArrowsTemporarily();
+    }
   });
 
   // Overlay zone click handlers
@@ -548,13 +557,19 @@ document.addEventListener("contextmenu", function(e) {
   const rightZone = document.querySelector('.right-zone');
 
   leftZone.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-    lightboxImg.src = gallery[currentIndex].src;
+    if (visibleImages.length > 0) {
+      currentIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
+      updateLightboxImage();
+      showArrowsTemporarily();
+    }
   });
 
   rightZone.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % gallery.length;
-    lightboxImg.src = gallery[currentIndex].src;
+    if (visibleImages.length > 0) {
+      currentIndex = (currentIndex + 1) % visibleImages.length;
+      updateLightboxImage();
+      showArrowsTemporarily();
+    }
   });
 </script>
 </body>
@@ -563,7 +578,7 @@ const overlay = document.getElementById('collections-overlay');
 const openBtn = document.getElementById('open-collections');
 const overlayCloseBtn = document.querySelector('.close-collections');
 const collectionsMenu = document.querySelector('.collections-menu');
-const allImages = document.querySelectorAll('.gallery img');
+// usa la variabile allImages già dichiarata nello script principale
 
 // Recupera tutte le collezioni presenti nelle immagini
 let allCollections = [...new Set(Array.from(allImages).map(img => img.dataset.collection).filter(c => c))];
