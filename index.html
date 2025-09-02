@@ -569,7 +569,7 @@ const allImages = document.querySelectorAll('.gallery img');
 let allCollections = [...new Set(Array.from(allImages).map(img => img.dataset.collection).filter(c => c))];
 
 // Definisci l'ordine desiderato
-let desiredOrder = ["TP - PA", "Switzerland", "ppl", "ETNA"]; // modifica qui l'ordine del menù
+let desiredOrder = ["TP - PA", "ppl", "Switzerland", "ETNA"]; // modifica qui l'ordine del menù
 
 // Ordina le collezioni secondo l'array desiderato
 let collections = desiredOrder.filter(name => allCollections.includes(name));
@@ -597,7 +597,7 @@ collections.forEach(name => {
 // Aggiungi voce "Home" in fondo
 const homeItem = document.createElement('a');
 homeItem.href = "#";
-homeItem.textContent = "Tutte le foto";
+homeItem.textContent = "'All Photos'";
 homeItem.addEventListener('click', (e) => {
   e.preventDefault();
   allImages.forEach(img => img.parentElement.style.display = 'block');
