@@ -171,14 +171,14 @@ header {
   font-size: 40px;
 }
 
-.close { 
+.close {
   top: 20px; 
   right: 30px; 
   color: rgba(255,255,255,0.5); 
   transition: opacity 0.3s; 
 }
 
-.prev, .next { 
+.prev, .next {
   top: 50%; 
   padding: 16px; 
   font-size: 50px; 
