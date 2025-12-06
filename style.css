@@ -231,6 +231,11 @@ footer a {
   align-items:center;
 }
 
+.footer-subtext {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
 .side-arrow {
   position: absolute;
   top: 50%;
