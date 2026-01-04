@@ -57,10 +57,12 @@
 }
 
 .year-switch a {
-  display: inline-block;   /* garantisce box separati in Safari */
+  display: inline-block;       /* garantisce box separati */
   opacity: 0.4;
   transition: opacity 0.3s;
-  margin: 0 25px;          /* fallback per Safari */
+  margin: 0 25px;              /* distanza equilibrata tra gli anni */
+  min-width: 35px;             /* assicura che non si attacchino */
+  text-align: center;
   text-decoration: none;
 }
 
