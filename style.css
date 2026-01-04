@@ -52,13 +52,16 @@
 .year-switch {
   display: flex;
   justify-content: center;
-  gap: 50px;
+  gap: 0;                  /* gap fallback, Safari usa margin sugli <a> */
   margin-top: 20px;
 }
 
 .year-switch a {
+  display: inline-block;   /* garantisce box separati in Safari */
   opacity: 0.4;
   transition: opacity 0.3s;
+  margin: 0 25px;          /* fallback per Safari */
+  text-decoration: none;
 }
 
 .collections-menu a {
