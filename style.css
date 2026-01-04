@@ -42,6 +42,25 @@
   text-align: center;
 }
 
+.collections-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  text-align: center;
+}
+
+.year-switch {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  margin-top: 20px;
+}
+
+.year-switch a {
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
 .collections-menu a {
   color: white;
   font-size: 2rem;
