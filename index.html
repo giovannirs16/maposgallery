@@ -352,14 +352,20 @@ collections.forEach(name => {
   a.textContent = name;
   a.addEventListener('click', (e) => {
     e.preventDefault();
+    // mostra solo le immagini della collezione selezionata
     allImages.forEach(img => {
-      if(img.dataset.collection === name){
-        img.parentElement.style.display = 'block';
-      } else {
-        img.parentElement.style.display = 'none';
+      img.parentElement.style.display = img.dataset.collection === name ? 'block' : 'none';
+    });
+
+    // aggiorna lo stato visivo delle collezioni
+    Array.from(collectionsMenu.children).forEach(link => {
+      // escludi yearContainer e homeItem
+      if(link !== yearContainer && link !== homeItem){
+        link.style.opacity = link.textContent === name ? "1" : "0.4";
       }
     });
-    // spegni anni e All Photos quando è attiva una collezione
+
+    // spegni anni e All Photos
     homeItem.style.opacity = "0.4";
     if (typeof yearContainer !== "undefined") {
       Array.from(yearContainer.children).forEach(link => {
@@ -393,6 +399,13 @@ homeItem.addEventListener('click', (e) => {
       link.style.opacity = "0.4";
     });
   }
+
+  // accendi tutte le collezioni
+  Array.from(collectionsMenu.children).forEach(link => {
+    if(link !== yearContainer && link !== homeItem){
+      link.style.opacity = "1";
+    }
+  });
 
   activeYear = null;
   overlay.classList.remove('active');
