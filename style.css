@@ -60,8 +60,8 @@
   display: inline-block;       /* garantisce box separati */
   opacity: 0.4;
   transition: opacity 0.3s;
-  margin: 0 25px;              /* distanza equilibrata tra gli anni */
-  min-width: 35px;             /* assicura che non si attacchino */
+  margin: 0 20px;              /* distanza equilibrata tra gli anni */
+  min-width: 30px;             /* assicura che non si attacchino */
   text-align: center;
   text-decoration: none;
 }
