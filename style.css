@@ -57,13 +57,15 @@
 }
 
 .year-switch a {
-  display: inline-block;       /* garantisce box separati */
+  display: inline-block;
   opacity: 0.4;
   transition: opacity 0.3s;
-  margin: 0 20px;              /* distanza equilibrata tra gli anni */
-  min-width: 30px;             /* assicura che non si attacchino */
+  margin: 0 20px;
+  min-width: 30px;
   text-align: center;
   text-decoration: none;
+  line-height: 1.5;
+  padding-top: 3px;
 }
 
 .collections-menu a {
